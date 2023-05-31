@@ -23,7 +23,7 @@ precision += format[curr_k] - '0';
 else if (format[curr_k] == '*')
 {
 curr_k++;
-precision + va_arg(list, int);
+precision = va_arg(list, int);
 break;
 }
 else
