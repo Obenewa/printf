@@ -33,7 +33,7 @@ else
 return (write(1, &buffer[BUFF_SIZE - k - 1], width - 1) +
 write(1, &buffer[0], 1));
 }
-return (write(1, &buffer[0], 1));
+   return (write(1, &buffer[0], 1));
 }
 /************************* WRITE NUMBER *************************/
 /**
@@ -54,16 +54,7 @@ int flags, int width, int precision, int size)
 int length = BUFF_SIZE - ind - 1;
 char padd = ' ', extra_ch = 0;
 UNUSED(size);
-if ((flags & F_ZERO) && !(flags & F_MINUS))
-padd = '0';
-if (is_negative)
-extra_ch = '-';
-else if (flags & F_PLUS)
-extra_ch = '+';
-else if (flags & F_SPACE)
-extra_ch = ' ';
-return (write_num(ind, buffer, flags, width, precision,
-length, padd, extra_ch));
+if ((flags & F_ZERO) && !(flags & F_MINUS))length, padd, extra_ch));
 }
 /**
  * write_num - Write a number using a bufffer
@@ -98,7 +89,7 @@ if (width > length)
 for (i = 1; i < width - length + 1; i++)
 buffer[i] = padd;
 buffer[i] = '\0';
-if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buffer */
+    if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buffer */
 {
 if (extra_c)
 buffer[--ind] = extra_c;
@@ -132,7 +123,7 @@ return (write(1, &buffer[ind], length));
  * @precision: Precision specifier
  * @size: Size specifier
  *
- * Return: Number of written chars.
+  * Return: Number of written chars.
  */
 int write_unsgnd(int is_negative, int ind,
 char buffer[],
@@ -166,7 +157,7 @@ return (write(1, &buffer[ind], length) + write(1, &buffer[0], k));
 }
 else /* Asign extra char to left of padding [padd>buffer]*/
 {
-return (write(1, &buffer[0], k) + write(1, &buffer[ind], length));
+    return (write(1, &buffer[0], k) + write(1, &buffer[ind], length));
 }
 }
 return (write(1, &buffer[ind], length));
@@ -227,3 +218,14 @@ if (extra_c)
 buffer[--ind] = extra_c;
 return (write(1, &buffer[ind], BUFF_SIZE - ind - 1));
 }
+else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd
+*/   
+padd = '0';
+if (is_negative)
+extra_ch = '-';
+else if (flags & F_PLUS)
+extra_ch = '+';
+else if (flags & F_SPACE)
+extra_ch = ' ';
+return (write_num(ind, buffer, flags, width, precision,
+} 
